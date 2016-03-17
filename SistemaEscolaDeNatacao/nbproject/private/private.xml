@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/My%20Space/Documents/NetBeansProjects/Software/src/newpackage/CadastroResponsavel.java</file>
-            <file>file:/C:/Users/My%20Space/Documents/NetBeansProjects/Software/src/newpackage/CadastroNivel.java</file>
-            <file>file:/C:/Users/My%20Space/Documents/NetBeansProjects/Software/src/newpackage/TelaPrincipal.java</file>
+            <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/telas/TelaPrincipal.java</file>
+            <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/telas/CadastroResponsavel.java</file>
+            <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/conexao/banco_de_dados/telas_conexao/CadastroResponsavelConexao.java</file>
+            <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/conexao/banco_de_dados/ResponsavelConexao.java</file>
+            <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/conexao/banco_de_dados/telas_conexao/CadastroNivelConexao.java</file>
         </group>
     </open-files>
 </project-private>

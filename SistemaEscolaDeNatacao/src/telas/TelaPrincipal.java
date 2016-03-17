@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package newpackage;
+package telas;
 
 import javax.swing.UIManager;
 import com.sun.istack.internal.logging.Logger;
@@ -919,7 +919,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemCadastrarAlunoActionPerformed
 
     private void jMenuItemCadastrarResponsavelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarResponsavelActionPerformed
- 
+        CadastroResponsavel cadastroResponsavel = new CadastroResponsavel(this, true);
+        cadastroResponsavel.setVisible(true);
     }//GEN-LAST:event_jMenuItemCadastrarResponsavelActionPerformed
 
     private void jMenuItemCadastrarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarTurmaActionPerformed

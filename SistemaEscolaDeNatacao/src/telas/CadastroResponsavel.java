@@ -3,15 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package newpackage;
+package telas;
 
+import conexao.banco_de_dados.ResponsavelConexao;
+import conexao.banco_de_dados.telas_conexao.CadastroResponsavelConexao;
+import entidades.Contato;
 import entidades.Responsavel;
 import static java.lang.Integer.parseInt;
+import java.sql.SQLException;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -20,6 +25,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
@@ -39,7 +45,7 @@ public class CadastroResponsavel extends javax.swing.JDialog {
         jButtonRemover.setEnabled(false);
     }
 
-    public void ConvertendoData() {
+    public Calendar ConvertendoData() {
         Calendar c = Calendar.getInstance();
         Locale eua = Locale.US;
         DateFormat f = DateFormat.getDateInstance(DateFormat.FULL, eua);
@@ -51,9 +57,9 @@ public class CadastroResponsavel extends javax.swing.JDialog {
 
         mes = mes - 1;
         c.set(ano, mes, dia);
-        Date data = c.getTime();
-
-        System.out.println(f.format(data));
+        //Date data = c.getTime();
+        //System.out.println(f.format(data));
+        return c;
     }
 
     public void liberaBotaoSalvar() {
@@ -80,6 +86,39 @@ public class CadastroResponsavel extends javax.swing.JDialog {
         if (jTextFieldCidade.getText().isEmpty()) {
             this.errosDoUsuario += "\n- Campo Cidade está vazio.";
         }
+    }
+
+    public ArrayList<Contato> criaListaDeContatos() {
+
+        Responsavel responsavel;
+        try {
+            responsavel = ResponsavelConexao.BuscaResponsavelPeloRG(jFormattedTextFieldRg.getText());
+
+            ArrayList<Contato> listaContato = new ArrayList<Contato>();
+            int quantidadeDeContatos = jTableTabelaContato.getRowCount();
+            Contato contato;
+            for (int indice = 0; indice < quantidadeDeContatos; indice++) {
+                contato = new Contato();
+                contato.setIdResponsavel(responsavel.getIdResponsavel());
+                contato.setNome(jTableTabelaContato.getValueAt(indice, 0).toString());
+                contato.setTelefone(jTableTabelaContato.getValueAt(indice, 1).toString());
+                contato.setOperadora(jTableTabelaContato.getValueAt(indice, 2).toString());
+
+                if (jTableTabelaContato.getValueAt(indice, 3).toString() == "Sim") {
+                    contato.setIsWhatsapp(true);
+                } else {
+                    contato.setIsWhatsapp(false);
+                }
+                listaContato.add(contato);
+            }
+
+            return listaContato;
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastroResponsavel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao encontrar Responsável.", "Erro ao cadastrar Contatos...", ERROR_MESSAGE);
+        }
+
+        return null;
     }
 
     @SuppressWarnings("unchecked")
@@ -660,7 +699,6 @@ public class CadastroResponsavel extends javax.swing.JDialog {
         if (jTextFieldNomeContato.getText().isEmpty() || jFormattedTextFieldTelefoneContato.getValue() == null) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos.", "Campo vazio...", ERROR_MESSAGE);
         } else if (jTableTabelaContato.getRowCount() < 4) {
-            System.out.println(jTextFieldNomeContato.getText().isEmpty());
 
             String[] a = new String[4];
             a[0] = jTextFieldNomeContato.getText();
@@ -730,14 +768,79 @@ public class CadastroResponsavel extends javax.swing.JDialog {
     }//GEN-LAST:event_jFormattedTextFieldRgActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        liberaBotaoSalvar();
-        if (this.errosDoUsuario != "") {
-            JOptionPane.showMessageDialog(null, this.errosDoUsuario, "Campo vazio...", ERROR_MESSAGE);
-            this.errosDoUsuario = "";
-        } else {
-            ConvertendoData();
-            
-            Responsavel responsavel = new Responsavel();
+        try {
+            liberaBotaoSalvar();
+            if (this.errosDoUsuario != "") {
+                JOptionPane.showMessageDialog(null, this.errosDoUsuario, "Campo vazio...", ERROR_MESSAGE);
+                this.errosDoUsuario = "";
+            } else {
+                
+                if (CadastroResponsavelConexao.isResponsavelExiste(jFormattedTextFieldRg.getText())) {
+                    JOptionPane.showMessageDialog(null, "Este Responsável já está cadastrado.", "Erro ao cadastrar responsavel...", ERROR_MESSAGE);
+                } else {
+
+                    Responsavel responsavel = new Responsavel();
+                    responsavel.setNome(jTextFieldNome.getText());
+                    responsavel.setRG(jFormattedTextFieldRg.getText());
+
+                    if (jComboBoxEstadoCivil.getSelectedItem().toString() == "Solteiro(a)") {
+                        responsavel.setEstadoCivil("S");
+                    } else if (jComboBoxEstadoCivil.getSelectedItem().toString() == "Casado(a)") {
+                        responsavel.setEstadoCivil("C");
+                    } else if (jComboBoxEstadoCivil.getSelectedItem().toString() == "Divorciado(a)") {
+                        responsavel.setEstadoCivil("D");
+                    } else if (jComboBoxEstadoCivil.getSelectedItem().toString() == "Viúvo(a)") {
+                        responsavel.setEstadoCivil("V");
+                    }
+
+                    responsavel.setProfissao(jTextFieldProfissao.getText());
+
+                    if (jComboBoxEscolaridade.getSelectedItem().toString() == "Ensino Fundamental Incompleto") {
+                        responsavel.setEscolaridade("FI");
+                    } else if (jComboBoxEscolaridade.getSelectedItem().toString() == "Ensino Fundamento Completo") {
+                        responsavel.setEscolaridade("FC");
+                    } else if (jComboBoxEscolaridade.getSelectedItem().toString() == "Ensino Médio Incompleto") {
+                        responsavel.setEscolaridade("MI");
+                    } else if (jComboBoxEscolaridade.getSelectedItem().toString() == "Ensino Médio Completo") {
+                        responsavel.setEscolaridade("MC");
+                    } else if (jComboBoxEscolaridade.getSelectedItem().toString() == "Superior Incompleto") {
+                        responsavel.setEscolaridade("SI");
+                    } else if (jComboBoxEscolaridade.getSelectedItem().toString() == "Superior Completo") {
+                        responsavel.setEscolaridade("SC");
+                    }
+
+                    responsavel.setDataNascimento(ConvertendoData());
+                    responsavel.setFacebook(jTextFieldFacebook.getText());
+                    responsavel.setEmail(jTextFieldEmail.getText());
+                    responsavel.setRua(jTextFieldRua.getText());
+                    responsavel.setNumero(jTextFieldNumero.getText());
+                    responsavel.setComplemento(jTextFieldComplemento.getText());
+                    responsavel.setBairro(jTextFieldBairro.getText());
+                    responsavel.setCidade(jTextFieldCidade.getText());
+                    responsavel.setCep(jFormattedTextFieldCep.getText());
+                    responsavel.setEstado(jComboBoxEstado.getSelectedItem().toString());
+
+                    try {
+                        ResponsavelConexao.InsereResponsavel(responsavel);
+                        JOptionPane.showMessageDialog(null,"Responsável cadastrado com sucesso!","Cadastro realizado...",INFORMATION_MESSAGE);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(CadastroResponsavel.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar o Responsável.", "Erro ao cadastrar Responsável...", ERROR_MESSAGE);
+                    }
+
+                    if (jTableTabelaContato.getRowCount() >= 1) {
+                        ArrayList<Contato> lista_contato = criaListaDeContatos();
+                        try {
+                            ResponsavelConexao.InsereContato(lista_contato);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(CadastroResponsavel.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(null, "Houve um erro ao cadastrar os contatos.", "Erro ao cadastrar Contatos...", ERROR_MESSAGE);
+                        }
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastroResponsavel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -750,7 +853,7 @@ public class CadastroResponsavel extends javax.swing.JDialog {
     }//GEN-LAST:event_jComboBoxEscolaridadeActionPerformed
 
     private void jButtonSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvar1ActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jButtonSalvar1ActionPerformed
 
     private void jTableTabelaContatoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTabelaContatoMouseClicked

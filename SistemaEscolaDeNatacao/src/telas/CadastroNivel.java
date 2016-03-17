@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package newpackage;
+package telas;
 
 import conexao.banco_de_dados.NivelConexao;
 import conexao.banco_de_dados.telas_conexao.CadastroNivelConexao;

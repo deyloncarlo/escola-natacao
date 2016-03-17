@@ -23,7 +23,7 @@ public class Responsavel {
     private String email;
     private String rua;
     private String numero;
-    private String complento;
+    private String complemento;
     private String bairro;
     private String cidade;
     private String cep;
@@ -117,12 +117,12 @@ public class Responsavel {
         this.numero = numero;
     }
 
-    public String getComplento() {
-        return complento;
+    public String getComplemento() {
+        return complemento;
     }
 
-    public void setComplento(String complento) {
-        this.complento = complento;
+    public void setComplemento(String complento) {
+        this.complemento = complento;
     }
 
     public String getBairro() {

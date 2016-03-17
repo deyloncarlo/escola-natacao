@@ -22,8 +22,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JFrame;
-import newpackage.Home;
-import newpackage.TelaPrincipal;
+import telas.Home;
+import telas.TelaPrincipal;
 
 /**
  *

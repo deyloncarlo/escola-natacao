@@ -7,9 +7,11 @@ package conexao.banco_de_dados;
 
 import entidades.Contato;
 import entidades.Responsavel;
+import entidades.Turma;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -33,7 +35,7 @@ public class ResponsavelConexao {
             stmt = connection.prepareStatement(sql);
             stmt.setString(1, responsavel.getNome());
             stmt.setString(2, responsavel.getRG());
-            stmt.setDate(3, new Date (responsavel.getDataNascimento().getTimeInMillis()));
+            stmt.setDate(3, new Date(responsavel.getDataNascimento().getTimeInMillis()));
             stmt.setString(4, responsavel.getEstadoCivil());
             stmt.setString(5, responsavel.getRua());
             stmt.setString(6, responsavel.getNumero());
@@ -45,8 +47,8 @@ public class ResponsavelConexao {
             stmt.setString(12, responsavel.getEscolaridade());
             stmt.setString(13, responsavel.getFacebook());
             stmt.setString(14, responsavel.getEmail());
-            stmt.setString(15, responsavel.getComplento());
-            
+            stmt.setString(15, responsavel.getComplemento());
+
             stmt.execute();
             stmt.close();
 
@@ -56,8 +58,8 @@ public class ResponsavelConexao {
             connection.close();
         }
     }
-    
-    public static void InsereContato(ArrayList<Contato> lista_contato, int idResponsavel) throws SQLException {
+
+    public static void InsereContato(ArrayList<Contato> lista_contato) throws SQLException {
 
         connection = new Conexao().getConexao();
         String sql = "insert into contato" + "(nome,telefone,whatsapp,operadora,responsavel_id)"
@@ -73,7 +75,7 @@ public class ResponsavelConexao {
                 stmt.setString(2, lista_contato.get(indice).getTelefone());
                 stmt.setBoolean(3, lista_contato.get(indice).isIsWhatsapp());
                 stmt.setString(4, lista_contato.get(indice).getOperadora());
-                stmt.setInt(5, idResponsavel);
+                stmt.setInt(5, lista_contato.get(indice).getIdResponsavel());
 
                 stmt.execute();
                 stmt.close();
@@ -85,4 +87,25 @@ public class ResponsavelConexao {
         }
     }
 
+    public static Responsavel BuscaResponsavelPeloRG(String rgResponsavel) throws SQLException {
+        connection = new Conexao().getConexao();
+        String sql = "select id from responsavel where rg = ?";
+        ArrayList<Turma> lista_turma = new ArrayList<Turma>();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, rgResponsavel);
+            ResultSet rs = stmt.executeQuery();
+            Responsavel responsavel = new Responsavel();
+            while (rs.next()) {
+                responsavel.setIdResponsavel(rs.getInt("id"));
+            }
+            rs.close();
+            stmt.close();
+            return responsavel;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            connection.close();
+        }
+    }
 }
