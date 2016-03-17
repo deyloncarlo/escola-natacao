@@ -6,6 +6,7 @@
 package telas;
 
 import conexao.banco_de_dados.TurmaConexao;
+import conexao.banco_de_dados.telas_conexao.CadastroTurmaConexao;
 import entidades.Turma;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -492,26 +493,37 @@ public class CadastroTurma extends javax.swing.JDialog {
 
         } else {
 
-            Turma turma = new Turma();
-            turma.setNome(jLabelNomeGerado.getText());
-            turma.setPrimairoDia(jComboBoxPrimeiroDia.getSelectedItem().toString());
-
-            if (!jRadioButton2dias.isSelected()) {
-                turma.setSegundoDia(null);
-            } else {
-                turma.setSegundoDia(jComboBoxSegundoDia.getSelectedItem().toString());
-            }
-
-            turma.setHorarioInicio(converteHoraParaTime(jFormattedTextFieldHorarioInicio.getText().toString()));
-            turma.setHorarioFim(converteHoraParaTime(jFormattedTextFieldHorarioFim.getText().toString()));
-
-            ordenaDia();
-            geraNomeDaTurma();
-
-            turma.setNome(jLabelNomeGerado.getText());
-
             try {
-                TurmaConexao.InsereTurma(turma);
+                geraNomeDaTurma();
+                
+                if (CadastroTurmaConexao.isTurmaExiste(jLabelNomeGerado.getText()) == true) {
+                    
+                    JOptionPane.showMessageDialog(null, "Já existe uma Turma cadastrada neste horário.", "Erro ao cadastrar turma...", ERROR_MESSAGE);
+                } else {
+
+                    Turma turma = new Turma();
+                    turma.setNome(jLabelNomeGerado.getText());
+                    turma.setPrimairoDia(jComboBoxPrimeiroDia.getSelectedItem().toString());
+                    
+                    if (!jRadioButton2dias.isSelected()) {
+                        turma.setSegundoDia(null);
+                    } else {
+                        turma.setSegundoDia(jComboBoxSegundoDia.getSelectedItem().toString());
+                    }
+                    
+                    turma.setHorarioInicio(converteHoraParaTime(jFormattedTextFieldHorarioInicio.getText().toString()));
+                    turma.setHorarioFim(converteHoraParaTime(jFormattedTextFieldHorarioFim.getText().toString()));
+                    
+                    ordenaDia();
+                    
+                    turma.setNome(jLabelNomeGerado.getText());
+                    
+                    try {
+                        TurmaConexao.InsereTurma(turma);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(CadastroTurma.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(CadastroTurma.class.getName()).log(Level.SEVERE, null, ex);
             }
