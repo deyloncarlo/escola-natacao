@@ -5,6 +5,9 @@
  */
 package telas;
 
+import telas.cadastro.CadastroTurma;
+import telas.cadastro.CadastroNivel;
+import telas.cadastro.CadastroResponsavel;
 import javax.swing.UIManager;
 import com.sun.istack.internal.logging.Logger;
 import com.sun.javafx.geom.ConcentricShapePair;
