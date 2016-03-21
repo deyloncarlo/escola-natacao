@@ -81,8 +81,8 @@ public class TurmaConexao {
     
     public static void AlteraTurma(Turma turma) throws SQLException{
         connection = new Conexao().getConexao();
-        String sql = "update Turma set nome = ?, horario_inicio = ?,horario_fim = ?, primeiro_dia = ?, segundo_dia = ?"
-                + " where id = ?";
+        String sql = "update Turma set nome = ?, horario_inicio = ?,horario_fim = ?,"
+                + " primeiro_dia = ?, segundo_dia = ? where id = ?";
         
         PreparedStatement stmt;
         try {
@@ -96,6 +96,25 @@ public class TurmaConexao {
             stmt.execute();
             stmt.close();
             JOptionPane.showMessageDialog(null,"Turma alterada com sucesso!","Alterando Turma...",INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            connection.close();
+        }
+    }
+    
+    public static void deletaTurma(Turma turma) throws SQLException{
+        connection = new Conexao().getConexao();
+        String sql = "delete from Turma where id = ?";
+        
+        PreparedStatement stmt;
+        try {
+            stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, turma.getIdTurma());
+            
+            stmt.execute();
+            stmt.close();
+            JOptionPane.showMessageDialog(null,"Turma deletada com sucesso!","Deletando Turma...",INFORMATION_MESSAGE);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {

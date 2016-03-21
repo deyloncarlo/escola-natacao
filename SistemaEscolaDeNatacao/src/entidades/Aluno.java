@@ -35,6 +35,10 @@ public class Aluno {
         return idAluno;
     }
     
+    public void setIdAluno(int idAluno) {
+        this.idAluno = idAluno;
+    }
+    
     public boolean isIsNatacao() {
         return isNatacao;
     }
@@ -154,5 +158,4 @@ public class Aluno {
     public void setIdTurma(int idTurma) {
         this.idTurma = idTurma;
     }
-
 }
