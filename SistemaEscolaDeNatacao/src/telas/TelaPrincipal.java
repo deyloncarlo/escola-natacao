@@ -12,6 +12,8 @@ import javax.swing.UIManager;
 import com.sun.istack.internal.logging.Logger;
 import com.sun.javafx.geom.ConcentricShapePair;
 import javax.swing.JFrame;
+import telas.pesquisa.PesquisaResponsavel;
+import telas.pesquisa.PesquisaTurma;
 /**
  *
  * @author My Space
@@ -764,6 +766,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 jMenuHomeMouseClicked(evt);
             }
         });
+        jMenuHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuHomeActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenuHome);
 
         jMenuCadastrar.setIcon(new javax.swing.ImageIcon("C:\\Users\\My Space\\Desktop\\Icones\\add199.png")); // NOI18N
@@ -949,11 +956,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItemEditarResponsavelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEditarResponsavelActionPerformed
-
+        PesquisaResponsavel pesquisaResponsavel = new PesquisaResponsavel(this, true);
+        pesquisaResponsavel.setVisible(true);
     }//GEN-LAST:event_jMenuItemEditarResponsavelActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-
+        PesquisaTurma pesquisaTurma = new PesquisaTurma(null,true);
+        pesquisaTurma.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -1000,6 +1009,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         JFrame home = new Home();
         home.setVisible(true);
     }//GEN-LAST:event_jMenuHomeMouseClicked
+
+    private void jMenuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuHomeActionPerformed
 
     /**
      * @param args the command line arguments

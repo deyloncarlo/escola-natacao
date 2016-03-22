@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *
@@ -81,6 +82,49 @@ public class ResponsavelConexao {
                 stmt.close();
             }
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            connection.close();
+        }
+    }
+    
+    public static ArrayList<Responsavel> BuscaResponsavel() throws SQLException{
+        connection = new Conexao().getConexao();
+        String sql = "select * from responsavel";
+        ArrayList<Responsavel> lista_responsavel = new ArrayList<Responsavel>();
+        try{
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
+        while(rs.next()){
+            Responsavel responsavel = new Responsavel();
+            responsavel.setIdResponsavel(rs.getInt("id"));
+            responsavel.setNome( rs.getString("nome"));
+            responsavel.setRG(rs.getString("rg"));
+            
+            Calendar data = Calendar.getInstance();
+            data.setTime(rs.getDate("data_nascimento"));
+            responsavel.setDataNascimento(data);
+            
+            responsavel.setEstado(rs.getString("estado_civil"));
+            responsavel.setRua(rs.getString("rua"));
+            responsavel.setNumero(rs.getString("numero"));
+            responsavel.setBairro(rs.getString("bairro"));
+            responsavel.setComplemento(rs.getString("complemento"));
+            responsavel.setCidade(rs.getString("cidade"));
+            responsavel.setCep(rs.getString("cep"));
+            responsavel.setEstado(rs.getString("estado"));
+            responsavel.setProfissao(rs.getString("profissao"));
+            responsavel.setProfissao(rs.getString("escolaridade"));
+            responsavel.setProfissao(rs.getString("facebook"));
+            responsavel.setEmail(rs.getString("email"));
+            lista_responsavel.add(responsavel);
+        }
+        
+        rs.close();
+        stmt.close();
+        return lista_responsavel;
+        }catch(SQLException e){
             throw new RuntimeException(e);
         } finally {
             connection.close();
