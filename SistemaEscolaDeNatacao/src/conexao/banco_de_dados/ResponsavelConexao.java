@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 /**
  *
@@ -146,6 +148,44 @@ public class ResponsavelConexao {
             rs.close();
             stmt.close();
             return responsavel;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            connection.close();
+        }
+    }
+    
+    public static void deletaResponsavel(Responsavel responsavel) throws SQLException{
+        connection = new Conexao().getConexao();
+        String sql = "delete from Responsavel where id = ?";
+        
+        PreparedStatement stmt;
+        try {
+            stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, responsavel.getIdResponsavel());
+            
+            stmt.execute();
+            stmt.close();
+            JOptionPane.showMessageDialog(null,"Responsavel deletado com sucesso!","Deletando Responsavel...",INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            connection.close();
+        }
+    }
+    
+    public static void deletaContato(Responsavel responsavel) throws SQLException{
+        connection = new Conexao().getConexao();
+        String sql = "delete from Contato where responsavel_id = ?";
+        
+        PreparedStatement stmt;
+        try {
+            stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, responsavel.getIdResponsavel());
+            
+            stmt.execute();
+            stmt.close();
+            JOptionPane.showMessageDialog(null,"Contato deletado com sucesso!","Deletando Contato...",INFORMATION_MESSAGE);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
