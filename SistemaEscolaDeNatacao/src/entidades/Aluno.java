@@ -39,7 +39,7 @@ public class Aluno {
         this.idAluno = idAluno;
     }
     
-    public boolean isIsNatacao() {
+    public boolean isNatacao() {
         return isNatacao;
     }
 
@@ -47,7 +47,7 @@ public class Aluno {
         this.isNatacao = isNatacao;
     }
 
-    public boolean isIsHidroginastica() {
+    public boolean isHidroginastica() {
         return isHidroginastica;
     }
 
@@ -55,7 +55,7 @@ public class Aluno {
         this.isHidroginastica = isHidroginastica;
     }
 
-    public boolean isIsAlunoGoverno() {
+    public boolean isAlunoGoverno() {
         return isAlunoGoverno;
     }
 

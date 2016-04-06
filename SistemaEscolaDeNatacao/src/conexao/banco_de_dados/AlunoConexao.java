@@ -40,9 +40,9 @@ public class AlunoConexao {
             stmt.setDate(3, new Date(aluno.getDataNascimento().getTimeInMillis()));
             stmt.setString(4, aluno.getEstadoCivil());
             stmt.setString(5, aluno.getEscolaridade());
-            stmt.setBoolean(6, aluno.isIsAlunoGoverno());
-            stmt.setBoolean(7, aluno.isIsNatacao());
-            stmt.setBoolean(8, aluno.isIsHidroginastica());
+            stmt.setBoolean(6, aluno.isAlunoGoverno());
+            stmt.setBoolean(7, aluno.isNatacao());
+            stmt.setBoolean(8, aluno.isHidroginastica());
             stmt.setString(9, aluno.getMotivo());
             stmt.setString(10, aluno.getProfissao());
             stmt.setString(11, aluno.getFacebook());
@@ -106,7 +106,7 @@ public class AlunoConexao {
                 stmt = connection.prepareStatement(sql);
                 stmt.setString(1, lista_contato.get(indice).getNome());
                 stmt.setString(2, lista_contato.get(indice).getTelefone());
-                stmt.setBoolean(3, lista_contato.get(indice).isIsWhatsapp());
+                stmt.setBoolean(3, lista_contato.get(indice).isWhatsapp());
                 stmt.setString(4, lista_contato.get(indice).getOperadora());
                 stmt.setInt(5, idAluno);
 

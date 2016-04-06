@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/telas/pesquisa/VisualizarResponsavel.java</file>
-            <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/conexao/banco_de_dados/telas_conexao/VisualizarTurmaConexao.java</file>
+            <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/telas/edicao/EdicaoResponsavel.java</file>
+            <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/telas/edicao/EdicaoTurma.java</file>
+            <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/conexao/banco_de_dados/telas_conexao/PesquisaResponsavelConexao.java</file>
+            <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/telas/cadastro/CadastroResponsavel.java</file>
             <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/telas/pesquisa/PesquisaResponsavel.java</file>
-            <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/telas/pesquisa/VisualizarTurma.java</file>
-            <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/conexao/banco_de_dados/telas_conexao/VisualizaResponsavelConexao.java</file>
+            <file>file:/C:/Users/My%20Space/Documents/escola-natacao/SistemaEscolaDeNatacao/src/conexao/banco_de_dados/ResponsavelConexao.java</file>
         </group>
     </open-files>
 </project-private>

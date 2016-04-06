@@ -76,7 +76,7 @@ public class ResponsavelConexao {
                 stmt = connection.prepareStatement(sql);
                 stmt.setString(1, lista_contato.get(indice).getNome());
                 stmt.setString(2, lista_contato.get(indice).getTelefone());
-                stmt.setBoolean(3, lista_contato.get(indice).isIsWhatsapp());
+                stmt.setBoolean(3, lista_contato.get(indice).isWhatsapp());
                 stmt.setString(4, lista_contato.get(indice).getOperadora());
                 stmt.setInt(5, lista_contato.get(indice).getIdResponsavel());
 
@@ -108,7 +108,7 @@ public class ResponsavelConexao {
             data.setTime(rs.getDate("data_nascimento"));
             responsavel.setDataNascimento(data);
             
-            responsavel.setEstado(rs.getString("estado_civil"));
+            responsavel.setEstadoCivil(rs.getString("estado_civil"));
             responsavel.setRua(rs.getString("rua"));
             responsavel.setNumero(rs.getString("numero"));
             responsavel.setBairro(rs.getString("bairro"));
@@ -117,8 +117,8 @@ public class ResponsavelConexao {
             responsavel.setCep(rs.getString("cep"));
             responsavel.setEstado(rs.getString("estado"));
             responsavel.setProfissao(rs.getString("profissao"));
-            responsavel.setProfissao(rs.getString("escolaridade"));
-            responsavel.setProfissao(rs.getString("facebook"));
+            responsavel.setEscolaridade(rs.getString("escolaridade"));
+            responsavel.setFacebook(rs.getString("facebook"));
             responsavel.setEmail(rs.getString("email"));
             lista_responsavel.add(responsavel);
         }

@@ -50,7 +50,7 @@ public class Contato {
         this.operadora = operadora;
     }
 
-    public boolean isIsWhatsapp() {
+    public boolean isWhatsapp() {
         return isWhatsapp;
     }
 
