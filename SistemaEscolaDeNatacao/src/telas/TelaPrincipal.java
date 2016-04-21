@@ -12,6 +12,7 @@ import javax.swing.UIManager;
 import com.sun.istack.internal.logging.Logger;
 import com.sun.javafx.geom.ConcentricShapePair;
 import javax.swing.JFrame;
+import telas.cadastro.CadastroAluno;
 import telas.pesquisa.PesquisaResponsavel;
 import telas.pesquisa.PesquisaTurma;
 /**
@@ -925,11 +926,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemCadastrarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarAlunoActionPerformed
-
+        CadastroAluno cadastroAluno = new CadastroAluno(this,true);
+        cadastroAluno.setVisible(true);
     }//GEN-LAST:event_jMenuItemCadastrarAlunoActionPerformed
 
     private void jMenuItemCadastrarResponsavelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarResponsavelActionPerformed
-        CadastroResponsavel cadastroResponsavel = new CadastroResponsavel(this, true);
+        CadastroResponsavel cadastroResponsavel = new CadastroResponsavel(this.rootPane,true);
         cadastroResponsavel.setVisible(true);
     }//GEN-LAST:event_jMenuItemCadastrarResponsavelActionPerformed
 

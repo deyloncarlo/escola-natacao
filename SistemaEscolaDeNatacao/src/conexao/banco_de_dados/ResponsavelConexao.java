@@ -185,7 +185,44 @@ public class ResponsavelConexao {
             
             stmt.execute();
             stmt.close();
-            JOptionPane.showMessageDialog(null,"Contato deletado com sucesso!","Deletando Contato...",INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(null,"Contato deletado com sucesso!","Deletando Contato...",INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            connection.close();
+        }
+    }
+    
+    public static void AlteraResponsavel(Responsavel responsavel) throws SQLException {
+        connection = new Conexao().getConexao();
+        String sql = "update Responsavel set nome = ?,rg = ?,data_nascimento = ?,estado_civil = ?,rua = ?,numero = ?,"
+                + "bairro = ?,cidade = ?,cep = ?,estado = ?,profissao = ?,escolaridade = ?,facebook = ?,email = ?,"
+                + "complemento = ? where id = ?";
+
+        PreparedStatement stmt;
+
+        try {
+            stmt = connection.prepareStatement(sql);
+            stmt.setString(1, responsavel.getNome());
+            stmt.setString(2, responsavel.getRG());
+            stmt.setDate(3, new Date(responsavel.getDataNascimento().getTimeInMillis()));
+            stmt.setString(4, responsavel.getEstadoCivil());
+            stmt.setString(5, responsavel.getRua());
+            stmt.setString(6, responsavel.getNumero());
+            stmt.setString(7, responsavel.getBairro());
+            stmt.setString(8, responsavel.getCidade());
+            stmt.setString(9, responsavel.getCep());
+            stmt.setString(10, responsavel.getEstado());
+            stmt.setString(11, responsavel.getProfissao());
+            stmt.setString(12, responsavel.getEscolaridade());
+            stmt.setString(13, responsavel.getFacebook());
+            stmt.setString(14, responsavel.getEmail());
+            stmt.setString(15, responsavel.getComplemento());
+            stmt.setInt(16, responsavel.getIdResponsavel());
+
+            stmt.execute();
+            stmt.close();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
